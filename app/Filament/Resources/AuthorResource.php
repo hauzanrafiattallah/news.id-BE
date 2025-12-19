@@ -17,13 +17,24 @@ class AuthorResource extends Resource
 {
     protected static ?string $model = Author::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-user-circle';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                //
+                Forms\Components\TextInput::make('name')
+                    ->required()
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('username')
+                    ->required()
+                    ->maxLength(255),
+                Forms\Components\FileUpload::make('avatar')
+                    ->image()
+                    ->disk('public')
+                    ->required(),               
+                Forms\Components\Textarea::make('bio')
+                    ->maxLength(1000),
             ]);
     }
 
@@ -31,13 +42,19 @@ class AuthorResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\ImageColumn::make('avatar')->circular(),
+                Tables\Columns\TextColumn::make('name'),
+                Tables\Columns\TextColumn::make('username'),
+                Tables\Columns\TextColumn::make('bio'),
+                
             ])
             ->filters([
                 //
             ])
             ->actions([
+                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
