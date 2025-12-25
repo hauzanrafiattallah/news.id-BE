@@ -13,6 +13,7 @@ class News extends Model
         'slug',
         'thumbnail',
         'content',  
+        'is_featured',
     ];
 
     public function author()
