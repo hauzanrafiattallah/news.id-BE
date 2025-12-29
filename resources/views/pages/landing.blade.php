@@ -33,29 +33,26 @@
   </div>
 
   <!-- Berita Unggulan -->
-  <div class="flex flex-col px-14 mt-10 ">
+  <div class="flex flex-col px-4 md:px-10 lg:px-14 mt-10">
     <div class="flex flex-col md:flex-row justify-between items-center w-full mb-6">
       <div class="font-bold text-2xl text-center md:text-left">
         <p>Berita Unggulan</p>
-        <p>Untuk Kamu</p>
       </div>
       <a href="semuaberita.html" class="bg-primary px-5 py-2 rounded-full text-white font-semibold mt-4 md:mt-0 h-fit">
         Lihat Semua
       </a>
     </div>
-    <div class="grid sm:grid-cols-1 gap-5 lg:grid-cols-4">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
       @foreach ($featureds as $featured)
-        <a href="detail-MotoGp.html">
+        <a href="detail-MotoGp.html" class="block">
           <div
-            class="border border-slate-200 p-3 rounded-xl hover:border-primary hover:cursor-pointer transition duration-300 ease-in-out"
-            style="height: 100%;">
-            <div class="bg-primary text-white rounded-full w-fit px-5 py-1 font-normal ml-2 mt-2 text-sm absolute">
+            class="relative border border-slate-200 p-3 rounded-xl hover:border-primary hover:cursor-pointer transition duration-300 ease-in-out">
+            <div class="bg-primary text-white rounded-full w-fit px-3 py-1 font-normal text-xs absolute top-5 left-5 z-10">
               {{ $featured->newsCategory->title }}
             </div>
-            <img src="{{ asset('storage/' . $featured->thumbnail) }}" alt="" class="w-full rounded-xl mb-3"
-              style="height: 150px; object-fit: cover;">
-            <p class="font-bold text-base mb-1">{{ $featured->title }}</p>
-            <p class="text-slate-400">{{\Carbon\Carbon::parse($featured->created_at)->format('d F Y')}}</p>
+            <img src="{{ asset('storage/' . $featured->thumbnail) }}" alt="" class="w-full rounded-xl mb-3 object-cover h-36">
+            <p class="font-bold text-sm mb-1 line-clamp-2">{{ $featured->title }}</p>
+            <p class="text-slate-400 text-xs">{{ \Carbon\Carbon::parse($featured->created_at)->format('d F Y') }}</p>
           </div>
         </a>
       @endforeach
@@ -110,11 +107,10 @@
   <div class="flex flex-col px-4 md:px-10 lg:px-14 mt-10">
     <div class="flex flex-col md:flex-row justify-between items-center w-full mb-6">
       <div class="font-bold text-2xl text-center md:text-left">
-        <p>Kenali Author</p>
-        <p>Terbaik Dari Kami</p>
+        <p>Author</p>
       </div>
       <a href="register.html" class="bg-primary px-5 py-2 rounded-full text-white font-semibold mt-4 md:mt-0 h-fit">
-        Gabung Menjadi Author
+        Jadi Author
       </a>
     </div>
 
@@ -143,25 +139,23 @@
   </div>
 
   <!-- Pilihan Author -->
-  <div class="flex flex-col px-14 mt-10 mb-10">
+  <div class="flex flex-col px-4 md:px-10 lg:px-14 mt-10 mb-10">
     <div class="flex flex-col md:flex-row justify-between items-center w-full mb-6">
       <div class="font-bold text-2xl text-center md:text-left">
         <p>Pilihan Author</p>
       </div>
     </div>
-    <div class="grid sm:grid-cols-1 gap-5 lg:grid-cols-4">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
       @foreach ($news as $choice)
-        <a href="detail-MotoGp.html">
+        <a href="detail-MotoGp.html" class="block">
           <div
-            class="border border-slate-200 p-3 rounded-xl hover:border-primary hover:cursor-pointer transition duration-300 ease-in-out"
-            style="height: 100%;">
-            <div class="bg-primary text-white rounded-full w-fit px-5 py-1 font-normal ml-2 mt-2 text-sm absolute">
+            class="relative border border-slate-200 p-3 rounded-xl hover:border-primary hover:cursor-pointer transition duration-300 ease-in-out">
+            <div class="bg-primary text-white rounded-full w-fit px-3 py-1 font-normal text-xs absolute top-5 left-5 z-10">
               {{ $choice->newsCategory->title }}
             </div>
-            <img src="{{ asset('storage/' . $choice->thumbnail) }}" alt="" class="w-full rounded-xl mb-3"
-              style="height: 200px; object-fit: cover;">
-            <p class="font-bold text-base mb-1">{{ $choice->title }}</p>
-            <p class="text-slate-400">{{ \Carbon\Carbon::parse($choice->created_at)->format('d F Y') }}</p>
+            <img src="{{ asset('storage/' . $choice->thumbnail) }}" alt="" class="w-full rounded-xl mb-3 object-cover h-36">
+            <p class="font-bold text-sm mb-1 line-clamp-2">{{ $choice->title }}</p>
+            <p class="text-slate-400 text-xs">{{ \Carbon\Carbon::parse($choice->created_at)->format('d F Y') }}</p>
           </div>
         </a>
       @endforeach
