@@ -22,7 +22,7 @@
             class="flex flex-col lg:flex-row items-start lg:items-center gap-4 font-medium text-base w-full lg:w-auto">
             <li><a href="{{ route('landing') }}" class="{{ request()->is('/') ? 'text-primary' : '' }} hover:text-gray-600">Beranda</a></li>
             @foreach (\App\Models\NewsCategory::all() as $category )
-            <li><a href="gayahidup.html" class="hover:text-primary">{{ $category->title }}</a></li>
+            <li><a href="{{ route('news.category', $category->slug) }}" class="{{ request()->segment(1) == $category->slug ? 'text-primary font-semibold' : '' }} hover:text-primary transition">{{ $category->title }}</a></li>
             @endforeach
           </ul>
         </div>
