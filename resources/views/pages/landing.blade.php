@@ -9,7 +9,7 @@
     <div class="swiper-wrapper">
       @foreach ($banners as $banner)
         <div class="swiper-slide">
-          <a href="detail-MotoGp.html" class="block">
+          <a href="{{ route('news.show', $banner->news->slug) }}" class="block">
             <div class="relative flex flex-col gap-1 justify-end p-3 h-72 rounded-xl bg-cover bg-center overflow-hidden"
               style="background-image: url('{{ asset('storage/' . $banner->news->thumbnail) }}')">
               <div
@@ -44,13 +44,14 @@
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
       @foreach ($featureds as $featured)
-        <a href="detail-MotoGp.html" class="block">
+        <a href="{{ route('news.show', $featured->slug) }}" class="block">
           <div
             class="relative border border-slate-200 p-3 rounded-xl hover:border-primary hover:cursor-pointer transition duration-300 ease-in-out">
             <div class="bg-primary text-white rounded-full w-fit px-3 py-1 font-normal text-xs absolute top-5 left-5 z-10">
               {{ $featured->newsCategory->title }}
             </div>
-            <img src="{{ asset('storage/' . $featured->thumbnail) }}" alt="" class="w-full rounded-xl mb-3 object-cover h-36">
+            <img src="{{ asset('storage/' . $featured->thumbnail) }}" alt=""
+              class="w-full rounded-xl mb-3 object-cover h-36">
             <p class="font-bold text-sm mb-1 line-clamp-2">{{ $featured->title }}</p>
             <p class="text-slate-400 text-xs">{{ \Carbon\Carbon::parse($featured->created_at)->format('d F Y') }}</p>
           </div>
@@ -71,7 +72,7 @@
       <!-- Berita Utama -->
       <div
         class="relative col-span-7 lg:row-span-3 border border-slate-200 p-3 rounded-xl hover:border-primary hover:cursor-pointer">
-        <a href="detail-MotoGp.html">
+        <a href="{{ route('news.show', $news[0]->slug) }}" class="block">
           <div class="bg-primary text-white rounded-full w-fit px-4 py-1 font-normal ml-5 mt-5 absolute">
             {{ $news[0]->newsCategory->title }}
           </div>
@@ -87,7 +88,7 @@
 
       <!-- Berita -->
       @foreach ($news->skip(1) as $new)
-        <a href="detail-MotoGp.html"
+        <a href="{{ route('news.show', $new->slug) }}"
           class="relative col-span-5 flex flex-col h-fit md:flex-row gap-3 border border-slate-200 p-3 rounded-xl hover:border-primary hover:cursor-pointer">
           <div class="bg-primary text-white rounded-full w-fit px-4 py-1 font-normal ml-2 mt-2 absolute text-sm">
             {{ $new->newsCategory->title }}
@@ -147,7 +148,7 @@
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
       @foreach ($news as $choice)
-        <a href="detail-MotoGp.html" class="block">
+        <a href="{{ route('news.show', $choice->slug) }}" class="block">
           <div
             class="relative border border-slate-200 p-3 rounded-xl hover:border-primary hover:cursor-pointer transition duration-300 ease-in-out">
             <div class="bg-primary text-white rounded-full w-fit px-3 py-1 font-normal text-xs absolute top-5 left-5 z-10">
