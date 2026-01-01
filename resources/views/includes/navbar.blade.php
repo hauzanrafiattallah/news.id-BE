@@ -31,13 +31,23 @@
       <!-- Search dan Login -->
       <div class="hidden lg:flex items-center gap-2 mt-4 lg:mt-0 w-full lg:w-auto relative">
         <div class="relative w-full lg:w-auto">
-          <input type="text" placeholder="Cari berita..."
-            class="border border-slate-300 rounded-full px-4 py-2 pl-8 w-full text-sm font-normal lg:w-auto focus:outline-none focus:ring-primary focus:border-primary"
-            id="searchInput" />
+          <form action="{{ route('news.index') }}" method="GET" id="searchForm">
+            <input type="text" name="search" placeholder="Cari berita..." value="{{ request('search') }}"
+              class="border border-slate-300 rounded-full px-4 py-2 pl-8 pr-8 w-full text-sm font-normal lg:w-48 focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary transition-all"
+              id="searchInput" autocomplete="off" />
+          </form>
           <!-- Icon Search -->
-          <span class="absolute inset-y-0 left-3 flex items-center text-slate-400">
+          <span class="absolute inset-y-0 left-3 flex items-center text-slate-400 pointer-events-none">
             <img src="{{ asset('assets/img/search.png') }}" alt="search" class="w-4">
           </span>
+          <!-- Clear Button (X) -->
+          <button type="button" id="clearSearch" 
+            class="absolute inset-y-0 right-2 flex items-center text-slate-400 hover:text-slate-600 transition-colors {{ request('search') ? '' : 'hidden' }}"
+            title="Hapus pencarian">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
         </div>
         <a href="login.html"
           class="bg-primary px-8 py-2 rounded-full text-white font-semibold h-fit text-sm lg:text-base">
@@ -60,8 +70,52 @@
 
 @push('scripts')
 <script>
+    // Mobile menu toggle
     document.getElementById('menu-toggle')?.addEventListener('click', () => {
         document.getElementById('dropdown-menu').classList.toggle('hidden');
     });
+
+    // Debounce function
+    function debounce(func, wait) {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
+    }
+
+    // Auto search with debounce
+    const searchInput = document.getElementById('searchInput');
+    const searchForm = document.getElementById('searchForm');
+    const clearBtn = document.getElementById('clearSearch');
+
+    if (searchInput && searchForm) {
+        const performSearch = debounce(() => {
+            searchForm.submit();
+        }, 500); // 500ms debounce
+
+        searchInput.addEventListener('input', (e) => {
+            // Show/hide clear button
+            if (clearBtn) {
+                clearBtn.classList.toggle('hidden', e.target.value.length === 0);
+            }
+            // Auto submit with debounce
+            performSearch();
+        });
+    }
+
+    // Clear search button
+    if (clearBtn && searchInput) {
+        clearBtn.addEventListener('click', () => {
+            searchInput.value = '';
+            clearBtn.classList.add('hidden');
+            // Redirect to news index without search param
+            window.location.href = '{{ route("news.index") }}';
+        });
+    }
 </script>
 @endpush
