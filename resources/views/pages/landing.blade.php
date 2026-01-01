@@ -38,7 +38,7 @@
       <div class="font-bold text-2xl text-center md:text-left">
         <p>Berita Unggulan</p>
       </div>
-      <a href="semuaberita.html" class="bg-primary px-5 py-2 rounded-full text-white font-semibold mt-4 md:mt-0 h-fit">
+      <a href="{{ route('news.index') }}" class="bg-primary px-5 py-2 rounded-full text-white font-semibold mt-4 md:mt-0 h-fit">
         Lihat Semua
       </a>
     </div>

@@ -25,4 +25,11 @@ class NewsController extends Controller
 
         return view('pages.news.category', compact('category', 'news'));
     }
+
+    public function index()
+    {
+        $news = News::paginate(4);
+
+        return view('pages.news.index', compact('news'));
+    }
 }
