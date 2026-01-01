@@ -8,7 +8,7 @@
                     &lt;
                 </span>
             @else
-                <a href="{{ $paginator->previousPageUrl() }}" rel="prev" class="px-4 py-2 text-sm font-medium text-slate-700 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 hover:text-[#FF801A] transition-colors">
+                <a href="{{ $paginator->previousPageUrl() }}" rel="prev" class="px-4 py-2 text-sm font-medium text-slate-700 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 hover:text-primary transition-colors">
                     &lt;
                 </a>
             @endif
@@ -27,13 +27,12 @@
                     @foreach ($element as $page => $url)
                         @if ($page == $paginator->currentPage())
                             {{-- Active Page (Solid Orange) --}}
-                            <span aria-current="page" class="px-4 py-2 text-sm font-medium text-white bg-[#FF801A] border border-[#FF801A] rounded-lg shadow-sm">
+                            <span aria-current="page" class="px-4 py-2 text-sm font-medium text-white bg-primary border border-primary rounded-lg shadow-sm">
                                 {{ $page }}
                             </span>
                         @else
                             {{-- Inactive Page (Outline) --}}
-                            {{-- Hover effect also adjusted to match orange --}}
-                            <a href="{{ $url }}" class="px-4 py-2 text-sm font-medium text-slate-700 bg-white border border-slate-300 rounded-lg hover:bg-orange-50 hover:text-[#FF801A] hover:border-[#FF801A] transition-colors">
+                            <a href="{{ $url }}" class="px-4 py-2 text-sm font-medium text-slate-700 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 hover:text-primary hover:border-primary transition-colors">
                                 {{ $page }}
                             </a>
                         @endif
@@ -43,7 +42,7 @@
 
             {{-- Next Page Link --}}
             @if ($paginator->hasMorePages())
-                <a href="{{ $paginator->nextPageUrl() }}" rel="next" class="px-4 py-2 text-sm font-medium text-slate-700 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 hover:text-[#FF801A] transition-colors">
+                <a href="{{ $paginator->nextPageUrl() }}" rel="next" class="px-4 py-2 text-sm font-medium text-slate-700 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 hover:text-primary transition-colors">
                     &gt;
                 </a>
             @else
